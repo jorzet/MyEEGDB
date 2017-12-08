@@ -23,6 +23,8 @@ call BasePT.insertarPaciente(1,'carlos','hernandez','perez','epilepsia',40,'carl
 select @result;
 call BasePT.insertarPaciente(3,'Jorge','Zepeda','Tinoco','epilepsia',23,'jzt@gmail.com','123','Masculino',456789,@result);
 select @result;
+call BasePT.insertarPaciente(3,'Jorge','Zepeda','Tinoco','epilepsia',23,'jorzet.94@gmail.com','12345','Masculino',456789,@result);
+select @result;
 
 call BasePT.insertarDispositivo(3,'raspberry','B8:27:EB:48:E9:A2', @result);
 select @result;
@@ -153,18 +155,22 @@ select @result;
 call BasePT.mostrarResultadosPorSegmento(1, 'FP1', 2,@result);
 select @result;
 
+call BasePT.getEmailAndPassword('jzt@gmail.com',@result);
+select @result;
+
 
 use basept;
 
-select * from administrador;
-select *from paciente;
-select * from especialista;
-select * from cita;
-select * from dispositivosAdquisicion;
-select * from grabacionCanal;
-select * from resultadoCanal;
-select * from resultadoSegmento;
-select * from resultadosGenerales;
+select * from BasePT.administrador;
+select *from BasePT.paciente;
+select * from BasePT.especialista;
+select * from BasePT.cita;
+select * from BasePT.dispositivosAdquisicion;
+select * from BasePT.grabacionCanal;
+select * from BasePT.resultadoCanal;
+select * from BasePT.resultadoSegmento;
+select * from BasePT.resultadosGenerales;
+select * from BasePT.dispositivosAdquisicion;
 
 call BasePT.eliminarCita(1, @result);
 select @result;

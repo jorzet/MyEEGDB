@@ -1088,3 +1088,44 @@ BEGIN
     set SQL_SAFE_UPDATES = 1;
     
 END; %
+
+
+
+DELIMITER %
+CREATE PROCEDURE BasePT.getEmailAndPassword(IN email VARCHAR(25), 
+                              OUT resultado VARCHAR(100))
+BEGIN
+	-- si es un paciente
+    IF EXISTS (select p.id_paciente from BasePT.paciente as p where p.emailPaciente=email)
+    THEN
+     
+            -- Obtiene un paciente
+            select  p.emailPaciente, p.passPaciente
+            from BasePT.paciente  as p 
+            where p.emailPaciente=email;
+            set resultado =  'OK'; -- tipo usuario paciente
+        
+    -- si es un especialista
+    ELSEIF EXISTS (select e.id_especialista from BasePT.especialista as e where e.emailEspecialista=email)
+    THEN
+      
+            -- Obtiene un especialista
+            select e.emailEspecialista,e.passEspecialista
+            from BasePT.especialista as e
+            where e.emailEspecialista=email;
+            set resultado =  'OK'; -- tipo usuario igual especialista
+        
+    -- si es un administrador
+    ELSEIF EXISTS (select a.id_administrador from BasePT.administrador as a where a.emailAdministrador = email)
+    THEN
+
+            -- Obtiene un administrador
+            select a.emailAdministrador, a.passAdministrador
+            from BasePT.administrador as a
+            where a.emailAdministrador = email;
+            set resultado = 'OK'; -- tipo usuario igual a Administrador
+     
+    ELSE
+        set resultado = ''; -- no tiene cuenta
+    END IF;
+END; %
