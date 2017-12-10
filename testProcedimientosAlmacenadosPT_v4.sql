@@ -60,7 +60,8 @@ call BasePT.insertarCita(7,'2017-11-26','11:30','00:00:10','Coloca correctamente
 select @result;
 call BasePT.insertarCita(7,'2017-12-10','11:30','00:00:10','Coloca correctamente tus electrodos','FP1',@result);
 select @result;
-
+call BasePT.insertarCita(3,'2017-12-05','11:30','00:00:10','Coloca correctamente tus electrodos','FP1,FP2',@result);
+select @result;
 
 
 call BasePT.insertarGrabacion(1,'grabacion2',@result);
@@ -171,6 +172,25 @@ select * from BasePT.resultadoCanal;
 select * from BasePT.resultadoSegmento;
 select * from BasePT.resultadosGenerales;
 select * from BasePT.dispositivosAdquisicion;
+
+
+update BasePT.cita set electrodos = 'FP1,FP2' where id_paciente = 3;
+update BasePT.cita set fechaCita = '2017-12-04' where id_paciente = 3;
+
+
+delete from BasePT.resultadoSegmento where id_resultadoSegmento in (110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129);
+delete from BasePT.resultadoCanal where id_resultadoCanal=18;
+delete from BasePT.grabacionCanal where id_grabacion=26;
+delete from BasePT.grabacionCanal where id_grabacion=30;
+
+drop table BasePT.resultadoSegmento;
+drop table BasePT.resultadoCanal; 
+drop table BasePT.resultadosGenerales;
+
+delete from BasePT.grabacionCanal where id_grabacion=17;
+delete from BasePT.grabacionCanal where id_grabacion=18;
+delete from BasePT.grabacionCanal where id_grabacion=19;
+delete from BasePT.grabacionCanal where id_grabacion=20;
 
 call BasePT.eliminarCita(1, @result);
 select @result;

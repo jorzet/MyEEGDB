@@ -150,17 +150,13 @@ CREATE PROCEDURE BasePT.insertarGrabacion(IN folio_cita INT,
 										IN nombreArchivo VARCHAR(100), 
 										OUT respuesta INT)
 BEGIN
-	IF NOT EXISTS (SELECT id_grabacion from BasePT.grabacionCanal as g where g.nombreArchivo=nombreArchivo)
-	THEN
+	
 		INSERT INTO BasePT.grabacionCanal(folio_cita,
 									nombreArchivo) 
 		VALUES(folio_cita, nombreArchivo);
 		set respuesta =  LAST_INSERT_ID();
-	ELSE
-		set respuesta = -1;
-	END IF;
+	
 END; %
-
 
 
 -- 6. Insertar Resultados Generales
@@ -193,7 +189,7 @@ CREATE PROCEDURE BasePT.insertarResultadosSegmento(IN id_grabacion INT,
 													IN tipoOnda ENUM('Ritmo-alpha', 'Frecuencia-alpha', 'Ritmo-beta',  'Frecuencia-beta', 
 																	 'Ritmo-delta', 'Frecuencia-delta', 'Ritmo-theta', 'Frecuencia-theta', 
 																	 'Ritmo-gamma', 'Frecuencia-gamma', 'No-asignado'),
-													senal NVARCHAR(10240),
+													senal NVARCHAR(20240),
 													OUT respuesta varchar(100))
 BEGIN
 	IF EXISTS ( SELECT g.id_grabacion FROM BasePT.grabacionCanal AS g WHERE g.id_grabacion=id_grabacion)

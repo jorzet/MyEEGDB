@@ -128,12 +128,13 @@ frecuenciaDominante DOUBLE,
 tipoOnda ENUM('Ritmo-alpha', 'Frecuencia-alpha', 'Ritmo-beta', 'Frecuencia-beta', 
 			  'Ritmo-delta', 'Frecuencia-delta', 'Ritmo-theta','Frecuencia-theta', 
               'Ritmo-gamma', 'Frecuencia-gamma', 'No-asignado'),
-senal NVARCHAR(10240),
+senal NVARCHAR(20240),
 
 PRIMARY KEY(id_resultadoSegmento),
 INDEX(id_grabacion),
 FOREIGN KEY (id_grabacion) REFERENCES grabacionCanal(id_grabacion)
 );
+
 
 
 CREATE TABLE resultadoCanal(
