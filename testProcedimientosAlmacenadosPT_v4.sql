@@ -141,6 +141,9 @@ select @result;
 call BasePT.obtenerCitasPaciente(2,@result);
 select @result;
 
+call BasePT.mostrarResultadosGenerales(3,@result);
+select @result;
+
 call obtenerDatosUsuario('admin@gmail.con','admin123',@result);
 select @result;
 
@@ -153,7 +156,7 @@ select * from basept.especialista;
 call BasePT.mostrarResultadosPorCanal(1, 'FP2', @result);
 select @result;
 
-call BasePT.mostrarResultadosPorSegmento(1, 'FP1', 2,@result);
+call BasePT.mostrarResultadosPorSegmento(3, 'FP1', 2,@result);
 select @result;
 
 call BasePT.getEmailAndPassword('jzt@gmail.com',@result);

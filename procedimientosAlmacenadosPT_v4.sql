@@ -159,6 +159,19 @@ BEGIN
 END; %
 
 
+DELIMITER %
+CREATE PROCEDURE BasePT.mostrarResultadosGenerales(IN folio_cita INT,
+													OUT respuesta varchar(100))
+BEGIN
+	IF EXISTS ( select id_resultadosGenerales from BasePT.resultadosGenerales as rg where rg.folio_cita = folio_cita)
+    THEN
+		select * from BasePT.resultadosGenerales as rg where rg.folio_cita = folio_cita; 
+		SET respuesta = 'OK';
+	ELSE
+		SET respuesta = 'La cita no existe';
+	END IF;
+END; %
+
 -- 6. Insertar Resultados Generales
 
 DELIMITER %
