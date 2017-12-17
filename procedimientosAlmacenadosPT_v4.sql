@@ -637,7 +637,7 @@ END; %
 -- Obtención de las citas próximas de un especialista de sus diversos pacientes
  
 DELIMITER %
-CREATE PROCEDURE obtenerCitasPorEspecialista (IN especialista_id INT, 
+CREATE PROCEDURE BasePT.obtenerProximasCitasPorEspecialista (IN especialista_id INT, 
                         OUT resultado varchar(100))
 BEGIN
     IF EXISTS (select e.id_especialista from BasePT.especialista as e where e.id_especialista = especialista_id)
@@ -649,8 +649,31 @@ BEGIN
         ON p.id_especialista = e.id_especialista
             AND e.id_especialista = especialista_id) AS pac ON pac.id_paciente = c.id_paciente
             AND c.fechaCita >= now() order by c.fechaCita asc  LIMIT 6;
+		SET resultado = 'OK';
+        ELSE
+			SET resultado = 'Error, el especialista no existe';
 	END IF;
 END; %
+
+
+DELIMITER %
+CREATE PROCEDURE BasePT.obtenerTodasCitasPorEspecialista (IN especialista_id INT, 
+                        OUT resultado varchar(100))
+BEGIN
+    IF EXISTS (select e.id_especialista from BasePT.especialista as e where e.id_especialista = especialista_id)
+    THEN
+        -- obtener todos los pacientes de ese especialista
+        SELECT * FROM 
+        BasePT.cita as c JOIN BasePT.paciente AS p
+		ON c.id_paciente = p.id_paciente 
+        AND p.id_especialista = especialista_id;
+		SET resultado = 'OK';
+        ELSE
+			SET resultado = 'Error, el especialista no existe';
+	END IF;
+END; %
+
+
 
 /*DELIMITER %
 CREATE PROCEDURE BasePT.mostrarResultadosVariosSegmentos (IN paciente_id INT,

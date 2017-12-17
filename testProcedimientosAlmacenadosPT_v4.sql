@@ -62,7 +62,11 @@ call BasePT.insertarCita(7,'2017-12-10','11:30','00:00:10','Coloca correctamente
 select @result;
 call BasePT.insertarCita(3,'2017-12-05','11:30','00:00:10','Coloca correctamente tus electrodos','FP1,FP2',@result);
 select @result;
+call BasePT.insertarCita(3,'2017-12-11','11:30','00:00:10','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
 
+call BasePT.obtenerCitasPorEspecialista(3,@result);
+select @result;
 
 call BasePT.insertarGrabacion(1,'grabacion2',@result);
 select @result;
@@ -178,7 +182,7 @@ select * from BasePT.dispositivosAdquisicion;
 
 
 update BasePT.cita set electrodos = 'FP1,FP2' where id_paciente = 3;
-update BasePT.cita set fechaCita = '2017-12-04' where id_paciente = 3;
+update BasePT.cita set fechaCita = '2017-12-03' where id_paciente = 3;
 
 
 delete from BasePT.resultadoSegmento where id_resultadoSegmento in (110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129);
