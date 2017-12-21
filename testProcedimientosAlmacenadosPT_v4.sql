@@ -65,6 +65,15 @@ select @result;
 call BasePT.insertarCita(3,'2017-12-11','11:30','00:00:10','Coloca correctamente tus electrodos','FP1',@result);
 select @result;
 
+call BasePT.insertarCita(3,'2017-12-17','11:30','00:00:10','Coloca correctamente tus electrodos','FP2',@result);
+select @result;
+
+call BasePT.insertarCita(3,'2017-12-17','11:50','00:00:10','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(3,'2017-12-20','11:50','10:00:00','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
 call BasePT.obtenerCitasPorEspecialista(3,@result);
 select @result;
 
@@ -140,9 +149,9 @@ select @result;
 call BasePT.mostrarCitaPaciente(2,2,@result);
 select @result;
 
-call BasePT.obtenerCitasPaciente(1,@result);
+call BasePT.obtenerCitasPaciente(1,@result); 
 select @result;
-call BasePT.obtenerCitasPaciente(2,@result);
+call BasePT.obtenerCitasPaciente(3,@result);
 select @result;
 
 call BasePT.mostrarResultadosGenerales(3,@result);
@@ -161,6 +170,10 @@ call BasePT.mostrarResultadosPorCanal(1, 'FP2', @result);
 select @result;
 
 call BasePT.mostrarResultadosPorSegmento(3, 'FP1', 2,@result);
+select @result;
+
+
+call BasePT.mostrarResultadosPorIntervalo(3, 'FP1', 2,10,@result);
 select @result;
 
 call BasePT.getEmailAndPassword('jzt@gmail.com',@result);

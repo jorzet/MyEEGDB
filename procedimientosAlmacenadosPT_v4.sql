@@ -634,6 +634,33 @@ BEGIN
     END IF;
 END; % 
 
+
+-- 8. Mostrar resultados por segmentos de un segundo
+
+DELIMITER %
+CREATE PROCEDURE BasePT.mostrarResultadosPorIntervalo (IN folio_cita INT,
+														IN canal varchar(15),
+														IN since_segundo INT,
+                                                        IN to_second INT,
+														OUT respuesta VARCHAR(100))
+BEGIN
+	IF EXISTS (SELECT c.folio_cita FROM BasePT.cita AS c WHERE c.folio_cita = folio_cita)
+    THEN
+		-- Obtiene los resultados de un segundo de grabacion de un canal
+        SELECT * 
+        FROM BasePT.resultadoSegmento AS rs
+        WHERE rs.id_grabacion IN
+			(SELECT gc.id_grabacion
+			FROM BasePT.grabacionCanal AS gc JOIN BasePT.cita AS c
+			ON gc.folio_cita = c.folio_cita)
+		AND rs.canal = canal
+        AND rs.segundo between since_segundo and to_second;
+        set respuesta =  'OK';
+	ELSE
+		set respuesta =  'El folio de la cita no existe';
+    END IF;
+END; % 
+
 -- Obtención de las citas próximas de un especialista de sus diversos pacientes
  
 DELIMITER %
