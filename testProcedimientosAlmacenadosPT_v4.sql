@@ -198,7 +198,7 @@ update BasePT.cita set electrodos = 'FP1,FP2' where id_paciente = 3;
 update BasePT.cita set fechaCita = '2017-12-03' where id_paciente = 3;
 
 
-delete from BasePT.resultadoSegmento where id_resultadoSegmento in (110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129);
+delete from BasePT.resultadoSegmento where id_resultadoSegmento in (141,142,143,144,145,146,147,148,149,150);
 delete from BasePT.resultadoCanal where id_resultadoCanal=18;
 delete from BasePT.grabacionCanal where id_grabacion=26;
 delete from BasePT.grabacionCanal where id_grabacion=30;

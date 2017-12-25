@@ -165,7 +165,9 @@ CREATE PROCEDURE BasePT.mostrarResultadosGenerales(IN folio_cita INT,
 BEGIN
 	IF EXISTS ( select id_resultadosGenerales from BasePT.resultadosGenerales as rg where rg.folio_cita = folio_cita)
     THEN
-		select * from BasePT.resultadosGenerales as rg where rg.folio_cita = folio_cita; 
+		SELECT rg.id_resultadosGenerales, rg.folio_cita, c.electrodos, c.duracionCita, rg.zonaCerebral, rg.tipoOndaDominante, rg.porcentajeTipoOnda
+        FROM BasePT.resultadosGenerales AS rg JOIN BasePT.cita AS c 
+        ON c.folio_cita=rg.folio_cita AND rg.folio_cita = folio_cita; 
 		SET respuesta = 'OK';
 	ELSE
 		SET respuesta = 'La cita no existe';
@@ -652,7 +654,7 @@ BEGIN
         WHERE rs.id_grabacion IN
 			(SELECT gc.id_grabacion
 			FROM BasePT.grabacionCanal AS gc JOIN BasePT.cita AS c
-			ON gc.folio_cita = c.folio_cita)
+			ON gc.folio_cita = c.folio_cita AND c.folio_cita = folio_cita)
 		AND rs.canal = canal
         AND rs.segundo between since_segundo and to_second;
         set respuesta =  'OK';
