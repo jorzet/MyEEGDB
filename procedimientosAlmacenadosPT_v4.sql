@@ -204,7 +204,8 @@ CREATE PROCEDURE BasePT.insertarResultadosSegmento(IN id_grabacion INT,
 													IN tipoOnda ENUM('Ritmo-alpha', 'Frecuencia-alpha', 'Ritmo-beta',  'Frecuencia-beta', 
 																	 'Ritmo-delta', 'Frecuencia-delta', 'Ritmo-theta', 'Frecuencia-theta', 
 																	 'Ritmo-gamma', 'Frecuencia-gamma', 'No-asignado'),
-													senal NVARCHAR(20240),
+													IN senal NVARCHAR(20240),
+                                                    IN anormal boolean,
 													OUT respuesta varchar(100))
 BEGIN
 	IF EXISTS ( SELECT g.id_grabacion FROM BasePT.grabacionCanal AS g WHERE g.id_grabacion=id_grabacion)
@@ -214,8 +215,9 @@ BEGIN
 												canal,
 												frecuenciaDominante,
                                                 tipoOnda,
-                                                senal) 
-		VALUES(id_grabacion, segundo, canal, frecuenciaDominante, tipoOnda, senal);
+                                                senal, 
+                                                anormal) 
+		VALUES(id_grabacion, segundo, canal, frecuenciaDominante, tipoOnda, senal, anormal);
 		SET respuesta = 'Resultados almacenados corresctamente';
     ELSE
 		SET respuesta = 'El ID de la grabacion no existe';
@@ -256,6 +258,7 @@ CREATE PROCEDURE BasePT.insertarResultadosCanal(IN id_grabacion INT,
 												IN promedioFrecuenciasFrecuenciaBeta DOUBLE,
 												IN promedioFrecuenciasFrecuenciaDelta DOUBLE,
 												IN promedioFrecuenciasFrecuenciaTheta DOUBLE,
+                                                IN anormal BOOLEAN,
 												OUT respuesta varchar(100))
 BEGIN
 	IF EXISTS ( SELECT gc.id_grabacion FROM BasePT.grabacionCanal AS gc WHERE gc.id_grabacion = id_grabacion)
@@ -288,7 +291,8 @@ BEGIN
 											promedioFrecuenciasFrecuenciaAlpha,
 											promedioFrecuenciasFrecuenciaBeta,
 											promedioFrecuenciasFrecuenciaDelta,
-											promedioFrecuenciasFrecuenciaTheta) 
+											promedioFrecuenciasFrecuenciaTheta,
+                                            anormal) 
 		VALUES(id_grabacion,canal,tipoOndaDominanteCanal,frecuenciaDominanteCanal,promedioAmplitudesCanal,
 				porcentajeAparicionRitmoAlpha,porcentajeAparicionRitmoBeta,porcentajeAparicionRitmoDelta,
 				porcentajeAparicionRitmoTheta,porcentajeAparicionFrecuenciaAlpha,porcentajeAparicionFrecuenciaBeta,
@@ -297,7 +301,7 @@ BEGIN
 				promedioAmplitudesFrecuenciaAlpha,promedioAmplitudesFrecuenciaBeta,promedioAmplitudesFrecuenciaDelta,
 				promedioAmplitudesFrecuenciaTheta,promedioFrecuenciasRitmoAlpha,promedioFrecuenciasRitmoBeta,
 				promedioFrecuenciasRitmoDelta,promedioFrecuenciasRitmoTheta,promedioFrecuenciasFrecuenciaAlpha,
-				promedioFrecuenciasFrecuenciaBeta,promedioFrecuenciasFrecuenciaDelta,promedioFrecuenciasFrecuenciaTheta);
+				promedioFrecuenciasFrecuenciaBeta,promedioFrecuenciasFrecuenciaDelta,promedioFrecuenciasFrecuenciaTheta, anormal);
 		SET respuesta = 'Resultados almacenados corresctamente';
     ELSE
 		SET respuesta = 'El ID de la grabacion no existe';

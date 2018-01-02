@@ -129,6 +129,7 @@ tipoOnda ENUM('Ritmo-alpha', 'Frecuencia-alpha', 'Ritmo-beta', 'Frecuencia-beta'
 			  'Ritmo-delta', 'Frecuencia-delta', 'Ritmo-theta','Frecuencia-theta', 
               'Ritmo-gamma', 'Frecuencia-gamma', 'No-asignado'),
 senal NVARCHAR(20240),
+anormal BOOLEAN,
 
 PRIMARY KEY(id_resultadoSegmento),
 INDEX(id_grabacion),
@@ -170,6 +171,7 @@ promedioFrecuenciasFrecuenciaAlpha DOUBLE,
 promedioFrecuenciasFrecuenciaBeta DOUBLE,
 promedioFrecuenciasFrecuenciaDelta DOUBLE,
 promedioFrecuenciasFrecuenciaTheta DOUBLE,
+anormal BOOLEAN,
 
 PRIMARY KEY(id_resultadoCanal),
 INDEX(id_grabacion),

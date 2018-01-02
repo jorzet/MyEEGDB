@@ -218,6 +218,8 @@ select * from BasePT.resultadoSegmento;
 select * from BasePT.resultadosGenerales;
 select * from BasePT.dispositivosAdquisicion;
 
+update BasePT.resultadoCanal set anormal=false where id_resultadoCanal>0;
+update BasePT.resultadoSegmento set anormal = false where id_resultadoSegmento>0;
 
 update BasePT.cita set electrodos = 'FP1,FP2' where id_paciente = 3;
 update BasePT.cita set fechaCita = '2017-12-03' where id_paciente = 3;
