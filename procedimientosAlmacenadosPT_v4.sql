@@ -406,7 +406,7 @@ BEGIN
 	IF EXISTS (SELECT p.id_paciente FROM BasePT.paciente AS p WHERE p.id_paciente=paciente_id)
 	THEN
 		-- Obtiene un paciente
-        SELECT p.id_paciente, p.id_especialista , p.nombrePaciente, p.apPaternoPaciente, p.apMaternoPaciente, p.padecimientoPaciente, p.edadPaciente, p.emailPaciente, p.generoPaciente, p.fotoPaciente
+        SELECT p.id_paciente, p.id_especialista , p.nombrePaciente, p.apPaternoPaciente, p.apMaternoPaciente, p.padecimientoPaciente, p.edadPaciente, p.emailPaciente, p.generoPaciente, p.fotoPaciente, p.passPaciente
         FROM BasePT.paciente AS p 
         WHERE p.id_paciente=paciente_id;
 		
@@ -462,7 +462,7 @@ BEGIN
 	IF EXISTS (SELECT e.id_especialista FROM BasePT.especialista AS e WHERE e.id_especialista=especialista_id)
 	THEN
 		-- Obtiene un especialista
-        SELECT e.id_especialista, e.nombreEspecialista, e.apPaternoEspecialista, e.apMaternoEspecialista, e.emailEspecialista, e.generoEspecialista, e.fotoEspecialista
+        SELECT e.id_especialista, e.nombreEspecialista, e.apPaternoEspecialista, e.apMaternoEspecialista, e.emailEspecialista, e.generoEspecialista, e.fotoEspecialista, e.passEspecialista
         FROM BasePT.especialista AS e 
         WHERE e.id_especialista=especialista_id;
 		
@@ -734,7 +734,7 @@ END; % */
 -- 1. Actualizar datos del Especialista
 
 DELIMITER %
-CREATE PROCEDURE actualizarDatosEspecialista(IN especialista_id int,
+CREATE PROCEDURE BasePT.actualizarDatosEspecialista(IN especialista_id int,
 											 IN nombre varchar(25), 
 									         IN apellidoPaterno varchar(25), 
 									         IN apellidoMaterno varchar(25), 
@@ -764,7 +764,7 @@ END; %
 -- 2. Actualizar datos del paciente
 
 DELIMITER %
-CREATE PROCEDURE actualizarDatosPaciente(IN paciente_id int,
+CREATE PROCEDURE BasePT.actualizarDatosPaciente(IN paciente_id int,
 										 IN nombre varchar(25), 
 										 IN apellidoPaterno varchar(25), 
 										 IN apellidoMaterno varchar(25),
@@ -785,7 +785,7 @@ BEGIN
 			padecimientoPaciente = padecimiento,
             edadPaciente = edad,
             emailPaciente = email,
-            passPaciente = passEspecialistaN,
+            passPaciente = passPacienteN,
             generoPaciente = genero,
             fotoPaciente = foto
         WHERE id_paciente = paciente_id;

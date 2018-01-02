@@ -8,6 +8,9 @@ call BasePT.insertarEspecialista('f','h','m','f@f.com','123456','Masculino',2222
 select @result;
 call BasePT.insertarEspecialista('Fernando','Gomez','Garza','fgg@gmail.com','123456','Masculino',22222,@result);
 select @result;
+call BasePT.insertarEspecialista('Prueba','p','p','prueba@prueba.com','123456','Masculino',22222,@result);
+select @result;
+
 
 call BasePT.insertarPaciente(1,'jorge','zepeda','tinoco','epilepsia',23,'jorzet.94@gmail.com','audir8','Masculino',940702,@result);
 select @result;
@@ -26,6 +29,9 @@ select @result;
 call BasePT.insertarPaciente(3,'Jorge','Zepeda','Tinoco','epilepsia',23,'jorzet.94@gmail.com','12345','Masculino',456789,@result);
 select @result;
 
+call BasePT.insertarPaciente(3,'Fernando','Hernandez','Molina','epilepsia',23,'fdohm.1994@gmail.com ','12345','Masculino',456789,@result);
+select @result;
+
 call BasePT.insertarDispositivo(3,'raspberry','B8:27:EB:48:E9:A2', @result);
 select @result;
 call BasePT.insertarDispositivo(3,'FP1','CC:2F:DE:C6:61:D2', @result);
@@ -33,7 +39,15 @@ select @result;
 call BasePT.insertarDispositivo(3,'FP2','C5:2C:8A:46:C7:74', @result);
 select @result;
 
-call BasePT.mostrarDispositivosPaciente(7,@result);
+
+call BasePT.insertarDispositivo(9,'raspberry','B8:27:EB:48:E9:A2', @result);
+select @result;
+call BasePT.insertarDispositivo(9,'FP1','CC:2F:DE:C6:61:D2', @result);
+select @result;
+call BasePT.insertarDispositivo(9,'FP2','C5:2C:8A:46:C7:74', @result);
+select @result;
+
+call BasePT.mostrarDispositivosPaciente(6,@result);
 select @result;
 
 call BasePT.eliminarDispositivoPaciente(3,7,@result);
@@ -72,6 +86,15 @@ call BasePT.insertarCita(3,'2017-12-17','11:50','00:00:10','Coloca correctamente
 select @result;
 
 call BasePT.insertarCita(3,'2017-12-20','11:50','10:00:00','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(9,'2017-12-20','11:50','10:00:00','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(9,'2017-12-20','11:50','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(3,'2017-12-25','11:50','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
 select @result;
 
 call BasePT.obtenerCitasPorEspecialista(3,@result);
@@ -169,16 +192,18 @@ select * from basept.especialista;
 call BasePT.mostrarResultadosPorCanal(1, 'FP2', @result);
 select @result;
 
-call BasePT.mostrarResultadosPorSegmento(3, 'FP1', 2,@result);
+call BasePT.mostrarResultadosPorSegmento(7, 'FP1', 1,@result);
 select @result;
 
 
-call BasePT.mostrarResultadosPorIntervalo(3, 'FP1', 2,10,@result);
+call BasePT.mostrarResultadosPorIntervalo(24, 'FP1', 15,15,@result);
 select @result;
 
 call BasePT.getEmailAndPassword('jzt@gmail.com',@result);
 select @result;
 
+call BasePT.mostrarResultadosPorCanal(7,'FP1',@result);
+select @result;
 
 use basept;
 
@@ -197,6 +222,7 @@ select * from BasePT.dispositivosAdquisicion;
 update BasePT.cita set electrodos = 'FP1,FP2' where id_paciente = 3;
 update BasePT.cita set fechaCita = '2017-12-03' where id_paciente = 3;
 
+update BasePT.paciente set emailPaciente = 'h@hhh.com' where id_paciente=8;
 
 delete from BasePT.resultadoSegmento where id_resultadoSegmento in (141,142,143,144,145,146,147,148,149,150);
 delete from BasePT.resultadoCanal where id_resultadoCanal=18;
