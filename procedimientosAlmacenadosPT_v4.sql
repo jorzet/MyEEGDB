@@ -924,7 +924,7 @@ END; %
 -- Eliminar cita (con o sin resultados)
 
 DELIMITER %
-CREATE PROCEDURE eliminarCita (IN cita_folio int,
+CREATE PROCEDURE BasePT.eliminarCita (IN cita_folio int,
 							   OUT resultado varchar(100))
                                             
 BEGIN
@@ -966,7 +966,7 @@ BEGIN
 			SET resultado = 'Datos eliminados correctamente';
 		END IF;
 	ELSE
-		set resultado = 'No existe la cita a eliminar';
+		set resultado = 'Error, no existe la cita a eliminar';
 	END IF;
     
     set FOREIGN_KEY_CHECKS  = 1;
@@ -1006,7 +1006,7 @@ END; %
 -- Eliminar un paciente
 
 DELIMITER %
-CREATE PROCEDURE eliminarPaciente (IN paciente_id int,
+CREATE PROCEDURE BasePT.eliminarPaciente (IN paciente_id int,
 							   OUT resultado varchar(100))
                                             
 BEGIN
@@ -1064,7 +1064,7 @@ BEGIN
 				SET resultado = 'Datos eliminados correctamente';
 		END IF;
 	ELSE
-		set resultado = 'No existe el paciente a eliminar';
+		set resultado = 'Error, no existe el paciente a eliminar';
 	END IF;
     
     set FOREIGN_KEY_CHECKS  = 1;

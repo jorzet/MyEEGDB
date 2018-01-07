@@ -97,6 +97,12 @@ select @result;
 call BasePT.insertarCita(3,'2017-12-25','11:50','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
 select @result;
 
+call BasePT.insertarCita(3,'2018-01-06','11:50','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(3,'2018-01-06','17:11','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
 call BasePT.obtenerCitasPorEspecialista(3,@result);
 select @result;
 
