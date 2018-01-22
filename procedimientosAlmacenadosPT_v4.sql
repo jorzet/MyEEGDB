@@ -1,6 +1,6 @@
 use BasePT;
 -- Procedimientos para la inserción de los datos
--- 1. Insertar Administrador
+-- 1. Insertar Administrador /Users/fernandohm/Downloads/BD/procedimientosAlmacenadosPT_v4.sql
 
 DELIMITER %
 CREATE PROCEDURE BasePT.insertarAdmin(IN nombre VARCHAR(25), 
@@ -603,12 +603,13 @@ BEGIN
 	IF EXISTS (SELECT c.folio_cita FROM BasePT.cita AS c WHERE c.folio_cita = folio_cita)
     THEN
 		-- Obtiene los resultados de todos los seguntos
-        SELECT * 
-        FROM BasePT.resultadoCanal AS rc
-        WHERE rc.id_grabacion IN
-			(SELECT gc.id_grabacion
-			FROM BasePT.cita AS c JOIN BasePT.grabacionCanal AS gc
-			ON gc.folio_cita = c.folio_cita) AND rc.canal = canal;
+   
+            
+            SELECT * FROM BasePT.resultadoCanal AS rc
+			join BasePT.grabacionCanal as gc 
+            on rc.id_grabacion = gc.id_grabacion 
+            and gc.folio_cita = folio_cita 
+            and rc.canal = canal;
         set respuesta =  'OK';
 	ELSE
 		set respuesta =  'El ID del paciente no existe';
@@ -641,7 +642,7 @@ BEGIN
 END; % 
 
 
--- 8. Mostrar resultados por segmentos de un segundo
+-- 8. Mostrar resultados por intervalo
 
 DELIMITER %
 CREATE PROCEDURE BasePT.mostrarResultadosPorIntervalo (IN folio_cita INT,
@@ -653,14 +654,16 @@ BEGIN
 	IF EXISTS (SELECT c.folio_cita FROM BasePT.cita AS c WHERE c.folio_cita = folio_cita)
     THEN
 		-- Obtiene los resultados de un segundo de grabacion de un canal
+      
+        
         SELECT * 
         FROM BasePT.resultadoSegmento AS rs
-        WHERE rs.id_grabacion IN
-			(SELECT gc.id_grabacion
-			FROM BasePT.grabacionCanal AS gc JOIN BasePT.cita AS c
-			ON gc.folio_cita = c.folio_cita AND c.folio_cita = folio_cita)
-		AND rs.canal = canal
-        AND rs.segundo between since_segundo and to_second;
+        join BasePT.grabacionCanal as gc
+        on rs.id_grabacion = gc.id_grabacion
+		and gc.folio_cita = folio_cita
+        and rs.canal = canal
+        and rs.segundo between since_segundo and to_second;
+        
         set respuesta =  'OK';
 	ELSE
 		set respuesta =  'El folio de la cita no existe';

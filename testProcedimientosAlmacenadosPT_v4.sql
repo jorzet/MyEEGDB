@@ -100,7 +100,10 @@ select @result;
 call BasePT.insertarCita(3,'2018-01-06','11:50','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
 select @result;
 
-call BasePT.insertarCita(3,'2018-01-06','17:11','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
+call BasePT.insertarCita(1,'2018-01-14','11:00','00:00:20','Coloca correctamente tus electrodos','FP1',@result);
+select @result;
+
+call BasePT.insertarCita(1,'2018-01-21','19:010','00:00:20','Coloca correctamente tus electrodos','FP1,FP2',@result);
 select @result;
 
 call BasePT.obtenerCitasPorEspecialista(3,@result);
@@ -246,7 +249,7 @@ delete from BasePT.grabacionCanal where id_grabacion=18;
 delete from BasePT.grabacionCanal where id_grabacion=19;
 delete from BasePT.grabacionCanal where id_grabacion=20;
 
-call BasePT.eliminarCita(1, @result);
+call BasePT.eliminarCita(13, @result);
 select @result;
 
 call BasePT.eliminarPaciente(3, @result);
@@ -255,6 +258,8 @@ select @result;
 call BasePT.eliminarEspecialista(3, @result);
 select @result;
 
+call BasePT.eliminarDispositivoPaciente(7,1, @result);
+call BasePT.eliminarDispositivoPaciente(5,2, @result);
 
 delete from paciente where id_paciente = 7;
 
