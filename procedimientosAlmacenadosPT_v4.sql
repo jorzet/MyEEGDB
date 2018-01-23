@@ -627,14 +627,13 @@ BEGIN
 	IF EXISTS (SELECT c.folio_cita FROM BasePT.cita AS c WHERE c.folio_cita = folio_cita)
     THEN
 		-- Obtiene los resultados de un segundo de grabacion de un canal
-        SELECT * 
-        FROM BasePT.resultadoSegmento AS rs
-        WHERE rs.id_grabacion IN
-			(SELECT gc.id_grabacion
-			FROM BasePT.grabacionCanal AS gc JOIN BasePT.cita AS c
-			ON gc.folio_cita = c.folio_cita)
-		AND rs.canal = canal
-        AND rs.segundo = segundo;
+        SELECT * FROM BasePT.resultadoSegmento AS rs
+			join BasePT.grabacionCanal as gc 
+            on rs.id_grabacion = gc.id_grabacion 
+            and gc.folio_cita = folio_cita 
+            and rs.canal = canal
+            and rs.segundo = segundo;
+            
         set respuesta =  'OK';
 	ELSE
 		set respuesta =  'El folio de la cita no existe';
